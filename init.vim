@@ -2,18 +2,37 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tjammer/blayu.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'ntk148v/vim-horizon'
+Plug 'tpope/vim-commentary'
+Plug 'arcticicestudio/nord-vim'
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+Plug 'rakr/vim-two-firewatch'
+Plug 'vim-ctrlspace/vim-ctrlspace'
+Plug 'jnurmine/Zenburn'
+Plug 'vim-syntastic/syntastic'
+Plug 'keith/swift'
+Plug 'TheCodedSelf/syntastic-swift'
+Plug 'rust-lang/rust'
+Plug 'camgunz/amber'
 call plug#end()
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" colorscheme two-firewatch
 colorscheme horizon
+" colorscheme inkpot
+" colorscheme nord
+" colorscheme amber
+
+set background=dark
 
 set splitbelow
 set splitright
@@ -23,7 +42,6 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=35
 map <C-o> :NERDTreeToggle<CR>
-au BufReadPost *.scss inoremap { {<CR><CR>//End of <Esc>2kbvwhy5w2lpi styles<CR>}<Esc>2ko<Esc>ddkddO
 au BufReadPost *.tsx inoremap <div <div className=""><CR></div><Esc>k6la
 au BufReadPost *.js inoremap <div <div className=""><CR></div><Esc>k6la
 inoremap <div <div class=""><CR></div><Esc>k6la
@@ -35,20 +53,20 @@ inoremap <h1 <h1></h1><Esc>5ha
 inoremap <h2 <h2></h2><Esc>5ha
 inoremap <h3 <h3></h3><Esc>5ha
 inoremap <asp <asp:ContentPlaceHolder ID="" runat="server" visible="true"></asp:ContentPlaceHolder><Esc>
-au BufReadPost *.master inoremap overlay <div class="overlay"></div>
+au BufReadPost *.php inoremap overlay <div class="overlay"></div>
 au BufReadPost *.scss inoremap .overlay .overlay {<Cr><BS>}<Esc>ko height: 100%;<Cr>width: 100%;<Cr>background: $overlay;<Cr>position: absolute;<Cr>top: 0;<Cr>left: 0;<Esc>
-inoremap gsap <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script><Esc>
 au BufReadPost *.md inoremap TODO: <span style="background: yellow; color: black; padding: 5px;">TODO:</span>
 nnoremap <Tab><Space> <Esc>i<Tab>
 nnoremap <Tab><Space><Space> <Esc>i<Tab><Tab>
 nnoremap <Tab><CR> <Esc>j<Tab><Space>
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-nnoremap <C-Q> :qa<CR>
-nnoremap <C-S> :w<CR>
+nnoremap <M-j> <C-W><C-J>
+nnoremap <M-k> <C-W><C-K>
+nnoremap <M-l> <C-W><C-L>
+nnoremap <M-h> <C-W><C-H>
+nnoremap <C-q> :qa<CR>
+nnoremap <C-s> :w<CR>
 nnoremap ; :
+nnoremap <leader>sb :!swift %<CR>
 set nocompatible
 set autoindent
 set smartindent
@@ -67,6 +85,10 @@ augroup ProjectDrawer
   autocmd!
   autocmd VimEnter * NERDTree
 augroup END
+
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
+let g:syntastic_swift_swiftlint_use_defaults = 1
+let g:syntastic_swift_checkers = ['swiftlint', 'swiftpm']
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -146,8 +168,7 @@ augroup mygroup
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
+augroup end 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
